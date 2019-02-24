@@ -8,6 +8,8 @@ TagManager:
   - Torch
   - Source
   - Enemy
+  - Bomb
+  - Explosion
   layers:
   - Default
   - TransparentFX

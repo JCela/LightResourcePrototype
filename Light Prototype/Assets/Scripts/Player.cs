@@ -35,6 +35,9 @@ public class Player : MonoBehaviour
     public float lightLostOnHit; //light lost when hit by an enemy
     public float knockbackPower; //power of force when hit by an enemy
     public GameObject droppedLightPrefab; //prefab for object dropped when hit by enemy
+
+    public float bombCost;
+    
     
     public float graceTimer;
     public float gracePeriod;
@@ -176,6 +179,17 @@ public class Player : MonoBehaviour
                     Destroy(interactable);
                 }
             }
+            
+            // If the interactable is a bomb, give the bomb some of player's light and ignite it
+            else if (interactable.CompareTag("Bomb"))
+            {
+                Bomb bomb = interactable.GetComponent<Bomb>();
+                if (bomb != null)
+                {
+                    lightAmt -= bombCost;
+                    bomb.Ignite();
+                }
+            }
         }
     }
 
@@ -208,7 +222,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         //When player enters interact collider of torch or source, add it to list of nearby interactables
-        if (other.CompareTag("Torch") || other.CompareTag("Source"))
+        if (other.CompareTag("Torch") || other.CompareTag("Source") || other.CompareTag("Bomb"))
         {
             nearbyInteractables.Add(other.gameObject);
         }
@@ -217,7 +231,7 @@ public class Player : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         //Same as above, but removing it from the list
-        if (other.CompareTag("Torch") || other.CompareTag("Source"))
+        if (other.CompareTag("Torch") || other.CompareTag("Source") || other.CompareTag("Bomb"))
         {
             nearbyInteractables.Remove(other.gameObject);
         }
