@@ -8,6 +8,8 @@ TagManager:
   - Torch
   - Source
   - Enemy
+  - Pole
+  - Campfire
   layers:
   - Default
   - TransparentFX

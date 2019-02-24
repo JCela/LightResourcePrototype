@@ -176,6 +176,23 @@ public class Player : MonoBehaviour
                     Destroy(interactable);
                 }
             }
+            else if (interactable.CompareTag("Campfire"))
+            {
+                CampfireScript cScript = interactable.GetComponent<CampfireScript>();
+                if (cScript != null)
+                {
+                    if (lightAmt > torchCost && cScript.isCampfireLit == false)
+                    {
+                        cScript.LightCampfire();
+                        lightAmt -= torchCost;
+                    }
+                    else if (lightAmt > torchCost && cScript.isCampfireLit == true)
+                    {
+                        lightAmt = lightAmt + cScript.campLightAmt / 2;
+                    }
+                   
+                }
+            }
         }
     }
 
