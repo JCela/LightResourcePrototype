@@ -9,6 +9,8 @@ TagManager:
   - Source
   - Enemy
   - Zipline
+  - Bomb
+  - Explosion
   layers:
   - Default
   - TransparentFX
