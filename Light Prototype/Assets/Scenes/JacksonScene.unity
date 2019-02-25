@@ -141,10 +141,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 31348399}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35025d5cb8af4694eba8f952a25ac75b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5faf5f65f6b164e7f8c04e8d7398f7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1500
+  ziplineSpeed: 2500
+  onZipline: 0
   lightAmt: 3
   lightLostPerSecond: 0.05
   lightDetectionMulti: 3
@@ -155,6 +157,7 @@ MonoBehaviour:
   visionMask: {fileID: 351507012}
   torchCost: 1
   lightLostOnHit: 1
+  ziplineCost: 1
   knockbackPower: 10
   droppedLightPrefab: {fileID: 7862942190716254165, guid: e2ad0df6f6931824591070deea510b91,
     type: 3}
@@ -414,7 +417,7 @@ GameObject:
   - component: {fileID: 109445592}
   - component: {fileID: 109445589}
   - component: {fileID: 109445591}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: Campfire
   m_TagString: Campfire
   m_Icon: {fileID: 0}
@@ -702,7 +705,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1648805447
-  m_SortingLayer: 2
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: c1c7f47f50218684e931a205f2936f8a, type: 3}
   m_Color: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 1}
@@ -806,9 +809,9 @@ SpriteMask:
   m_Sprite: {fileID: 21300000, guid: cbc94f9cd68e3ef46a6ead3f6aeb5622, type: 3}
   m_MaskAlphaCutoff: 0.2
   m_FrontSortingLayerID: 1648805447
-  m_BackSortingLayerID: 1648805447
-  m_FrontSortingLayer: 2
-  m_BackSortingLayer: 2
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
   m_FrontSortingOrder: 1
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 1
@@ -884,9 +887,9 @@ SpriteMask:
   m_Sprite: {fileID: 21300000, guid: cbc94f9cd68e3ef46a6ead3f6aeb5622, type: 3}
   m_MaskAlphaCutoff: 0.2
   m_FrontSortingLayerID: 1648805447
-  m_BackSortingLayerID: 1648805447
-  m_FrontSortingLayer: 2
-  m_BackSortingLayer: 2
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
   m_FrontSortingOrder: 1
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 1
@@ -908,6 +911,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Torch (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862942190716254165, guid: 948d9b90e68579247bd9d07976638e5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7862942190716254160, guid: 948d9b90e68579247bd9d07976638e5b,
         type: 3}
@@ -1157,9 +1165,9 @@ SpriteMask:
   m_Sprite: {fileID: 21300000, guid: cbc94f9cd68e3ef46a6ead3f6aeb5622, type: 3}
   m_MaskAlphaCutoff: 0.2
   m_FrontSortingLayerID: 1675272451
-  m_BackSortingLayerID: 1675272451
-  m_FrontSortingLayer: 1
-  m_BackSortingLayer: 1
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
   m_FrontSortingOrder: 1
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 1
@@ -1175,6 +1183,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Source
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635841500661437177, guid: 7663dc3e263d1714e9f810594a0d5821,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635841500661437177, guid: 7663dc3e263d1714e9f810594a0d5821,
+        type: 3}
+      propertyPath: m_TagString
+      value: Campfire
       objectReference: {fileID: 0}
     - target: {fileID: 8635841500661437176, guid: 7663dc3e263d1714e9f810594a0d5821,
         type: 3}
@@ -1319,9 +1337,9 @@ SpriteMask:
   m_Sprite: {fileID: 21300000, guid: cbc94f9cd68e3ef46a6ead3f6aeb5622, type: 3}
   m_MaskAlphaCutoff: 0.2
   m_FrontSortingLayerID: 1675272451
-  m_BackSortingLayerID: 1675272451
-  m_FrontSortingLayer: 1
-  m_BackSortingLayer: 1
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
   m_FrontSortingOrder: 1
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 1
@@ -1631,6 +1649,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 4042875001604798172, guid: e643e0b9624d5d84bbae984a25d3f687,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 4042875001604798167, guid: e643e0b9624d5d84bbae984a25d3f687,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1699,6 +1722,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Torch (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862942190716254165, guid: 948d9b90e68579247bd9d07976638e5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7862942190716254160, guid: 948d9b90e68579247bd9d07976638e5b,
         type: 3}
@@ -1948,6 +1976,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Source (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8635841500661437177, guid: 7663dc3e263d1714e9f810594a0d5821,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8635841500661437176, guid: 7663dc3e263d1714e9f810594a0d5821,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2097,6 +2130,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Source (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635841500661437177, guid: 7663dc3e263d1714e9f810594a0d5821,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8635841500661437176, guid: 7663dc3e263d1714e9f810594a0d5821,
         type: 3}
@@ -2411,7 +2449,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1675272451
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: c1c7f47f50218684e931a205f2936f8a, type: 3}
   m_Color: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 0.5882353}
@@ -2797,6 +2835,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Torch
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862942190716254165, guid: 948d9b90e68579247bd9d07976638e5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7862942190716254160, guid: 948d9b90e68579247bd9d07976638e5b,
         type: 3}

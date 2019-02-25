@@ -5,6 +5,7 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
+          <e p="Bomb.cs" t="Include" />
           <e p="CameraScript.cs" t="Include" />
           <e p="CampfireScript.cs" t="Include" />
           <e p="DroppedLight.cs" t="Include" />
@@ -13,6 +14,7 @@
           <e p="SetColliderSize.cs" t="Include" />
           <e p="SourceScript.cs" t="Include" />
           <e p="TorchScript.cs" t="Include" />
+          <e p="Zipline.cs" t="Include" />
         </e>
       </e>
       <e p="Library" t="ExcludeRecursive" />

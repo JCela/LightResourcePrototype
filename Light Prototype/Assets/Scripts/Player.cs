@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     
     //Movement
     public float moveSpeed;
+    public float ziplineSpeed;
+    public bool onZipline;
     private Vector2 inputVector;
     
     //Light
@@ -33,6 +35,7 @@ public class Player : MonoBehaviour
     [Header("Interactions")]
     public float torchCost; //light used when lighting a torch
     public float lightLostOnHit; //light lost when hit by an enemy
+    public float ziplineCost;
     public float knockbackPower; //power of force when hit by an enemy
     public GameObject droppedLightPrefab; //prefab for object dropped when hit by enemy
     
@@ -107,10 +110,13 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         //basic axis movement
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        inputVector = new Vector2(horizontal, vertical).normalized;
-        _rigidBody.AddForce(inputVector * moveSpeed * Time.fixedDeltaTime);
+        if (!onZipline)
+        {
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
+            inputVector = new Vector2(horizontal, vertical).normalized;
+            _rigidBody.AddForce(inputVector * moveSpeed * Time.fixedDeltaTime);
+        }
     }
 
     //Gets the nearest interactable within range
@@ -159,23 +165,14 @@ public class Player : MonoBehaviour
                 TorchScript tScript = interactable.GetComponent<TorchScript>();
                 if (tScript != null)
                 {
-                    if (lightAmt > torchCost && tScript.lit == false)
+                    if (lightAmt > torchCost && !tScript.lit)
                     {
                         tScript.LightTorch();
                         lightAmt -= torchCost;
                     }
                 }
             }
-            //If interactable is a source, give player light from the source and destroy it
-            else if (interactable.CompareTag("Source"))
-            {
-                SourceScript sScript = interactable.GetComponent<SourceScript>();
-                if (sScript != null)
-                {
-                    lightAmt += sScript.lightStored;
-                    Destroy(interactable);
-                }
-            }
+            
             else if (interactable.CompareTag("Campfire"))
             {
                 CampfireScript cScript = interactable.GetComponent<CampfireScript>();
@@ -190,9 +187,61 @@ public class Player : MonoBehaviour
                     {
                         lightAmt = (lightAmt + cScript.campLightAmt) / 2;
                         cScript.campLightAmt = (lightAmt + cScript.campLightAmt) / 2;
-                        
+
                     }
-                   
+
+                }
+            }
+
+            //If interactable is a source, give player light from the source and destroy it
+            else if (interactable.CompareTag("Source"))
+            {
+                SourceScript sScript = interactable.GetComponent<SourceScript>();
+                if (sScript != null)
+                {
+                    lightAmt += sScript.lightStored;
+                    Destroy(interactable);
+                }
+            }
+            
+            
+            else if (interactable.CompareTag("Bomb"))
+            {
+                Bomb bomb = interactable.GetComponent<Bomb>();
+                if (bomb != null)
+                {
+                    bomb.Ignite();
+                }
+            }
+            
+            else if (interactable.CompareTag("Zipline"))
+            {
+                Zipline zScript = interactable.GetComponentInParent<Zipline>();
+                if (zScript != null)
+                {
+                    if (lightAmt > ziplineCost && !zScript.isActive)
+                    {
+                        zScript.Activate();
+                        lightAmt -= ziplineCost;
+                    }
+                    else
+                    {
+                        if (zScript.isActive)
+                        {
+                            Vector3 startAnchor = interactable.transform.position;
+                            Vector3 endAnchor;
+                            if (interactable.transform == zScript.AnchorA)
+                            {
+                                endAnchor = zScript.AnchorB.position;
+                            }
+                            else
+                            {
+                                endAnchor = zScript.AnchorA.position;
+                            }
+                            StartCoroutine(UseZipline(startAnchor, endAnchor));
+                        }
+                    }
+                    
                 }
             }
         }
@@ -204,6 +253,21 @@ public class Player : MonoBehaviour
         
     }
 
+    IEnumerator UseZipline(Vector3 start, Vector3 end)
+    {
+        onZipline = true;
+        _collider.enabled = false;
+        transform.position = start;
+        Vector2 direction = (end - start).normalized;
+        while (Vector3.Distance(transform.position, end) > 0.5f)
+        {
+            _rigidBody.AddForce(direction * ziplineSpeed * Time.fixedDeltaTime);
+            yield return null;
+        }
+        onZipline = false;
+        _collider.enabled = true;
+    }
+    
     private void OnCollisionEnter2D(Collision2D other)
     {
         //When player collides with an enemy and player has not recently been hit
@@ -227,7 +291,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         //When player enters interact collider of torch or source, add it to list of nearby interactables
-        if (other.CompareTag("Torch") || other.CompareTag("Source") || other.CompareTag("Campfire"))
+        if (other.CompareTag("Torch") || other.CompareTag("Source") || other.CompareTag("Zipline") || other.CompareTag("Bomb") || other.CompareTag("Campfire"))
         {
             nearbyInteractables.Add(other.gameObject);
         }
@@ -236,7 +300,7 @@ public class Player : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         //Same as above, but removing it from the list
-        if (other.CompareTag("Torch") || other.CompareTag("Source") || other.CompareTag("Campfire"))
+        if (other.CompareTag("Torch") || other.CompareTag("Source") || other.CompareTag("Zipline") || other.CompareTag("Bomb") || other.CompareTag("Campfire"))
         {
             nearbyInteractables.Remove(other.gameObject);
         }

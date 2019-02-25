@@ -133,6 +133,9 @@ public class Enemy : MonoBehaviour
         {
             detectedLightSources.Add(other.gameObject);
         }
+        
+        if(other.CompareTag("Explosion"))
+            Debug.Log("EXPLOSION!!!");
     }
 
     private void OnTriggerExit2D(Collider2D other)
