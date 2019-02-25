@@ -192,7 +192,7 @@ MonoBehaviour:
   lit: 0
   lightAmt: 0
   startingLightAmt: 5
-  lightLostPerSecond: 0.3
+  lightLostPerSecond: 0.05
   lightDetectionMulti: 3
   lightVisionMulti: 5
   lightAmtVSpeed: 0.8

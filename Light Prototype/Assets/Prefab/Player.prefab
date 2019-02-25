@@ -236,8 +236,8 @@ MonoBehaviour:
   moveSpeed: 1500
   ziplineSpeed: 2500
   onZipline: 0
-  lightAmt: 5
-  lightLostPerSecond: 0.03
+  lightAmt: 4
+  lightLostPerSecond: 0.1
   lightDetectionMulti: 3
   lightVisionMulti: 5
   lightAmtVSpeed: 0.8
