@@ -113,8 +113,8 @@ public class Bomb : MonoBehaviour
         Explosion.gameObject.transform.localScale = detectionMask.localScale;
 
         yield return new WaitForSeconds(0.25f);
-        
-        Destroy(this.gameObject);
+
+        this.gameObject.SetActive(false);
 
     }
 }
