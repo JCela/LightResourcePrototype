@@ -188,7 +188,9 @@ public class Player : MonoBehaviour
                     }
                     else if (lightAmt > torchCost && cScript.isCampfireLit == true)
                     {
-                        lightAmt = lightAmt + cScript.campLightAmt / 2;
+                        lightAmt = (lightAmt + cScript.campLightAmt) / 2;
+                        cScript.campLightAmt = (lightAmt + cScript.campLightAmt) / 2;
+                        
                     }
                    
                 }
@@ -225,7 +227,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         //When player enters interact collider of torch or source, add it to list of nearby interactables
-        if (other.CompareTag("Torch") || other.CompareTag("Source"))
+        if (other.CompareTag("Torch") || other.CompareTag("Source") || other.CompareTag("Campfire"))
         {
             nearbyInteractables.Add(other.gameObject);
         }
@@ -234,7 +236,7 @@ public class Player : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         //Same as above, but removing it from the list
-        if (other.CompareTag("Torch") || other.CompareTag("Source"))
+        if (other.CompareTag("Torch") || other.CompareTag("Source") || other.CompareTag("Campfire"))
         {
             nearbyInteractables.Remove(other.gameObject);
         }

@@ -497,10 +497,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db2efc9243144be7b95756091eb69b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCampfireLit: 1
+  isCampfireLit: 0
   campLightAmt: 0
   campStartingLightAmt: 1
-  campLightLostPerSecond: 0.1
+  campLightLostPerSecond: 0
   lightDetectionMulti: 3
   lightVisionMulti: 5
   lightAmtVSpeed: 0.8

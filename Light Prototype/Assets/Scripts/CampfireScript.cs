@@ -58,6 +58,7 @@ public class CampfireScript : MonoBehaviour
             }
         }
         
+        
         //Move visualization towards actual light amount based on speed
         lightAmtVisualized += (campLightAmt - lightAmtVisualized) * lightAmtVSpeed * Time.deltaTime;
         
