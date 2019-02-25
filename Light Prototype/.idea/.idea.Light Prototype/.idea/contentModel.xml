@@ -16,6 +16,7 @@
           <e p="SetColliderSize.cs" t="Include" />
           <e p="SourceScript.cs" t="Include" />
           <e p="TorchScript.cs" t="Include" />
+          <e p="Zipline.cs" t="Include" />
         </e>
       </e>
       <e p="Library" t="ExcludeRecursive" />

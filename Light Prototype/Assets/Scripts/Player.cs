@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     
     //Movement
     public float moveSpeed;
+    public float ziplineSpeed;
+    public bool onZipline;
     private Vector2 inputVector;
     
     //Light
@@ -33,11 +35,9 @@ public class Player : MonoBehaviour
     [Header("Interactions")]
     public float torchCost; //light used when lighting a torch
     public float lightLostOnHit; //light lost when hit by an enemy
+    public float ziplineCost;
     public float knockbackPower; //power of force when hit by an enemy
     public GameObject droppedLightPrefab; //prefab for object dropped when hit by enemy
-
-    public float bombCost;
-    
     
     public float graceTimer;
     public float gracePeriod;
@@ -110,10 +110,13 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         //basic axis movement
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        inputVector = new Vector2(horizontal, vertical).normalized;
-        _rigidBody.AddForce(inputVector * moveSpeed * Time.fixedDeltaTime);
+        if (!onZipline)
+        {
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
+            inputVector = new Vector2(horizontal, vertical).normalized;
+            _rigidBody.AddForce(inputVector * moveSpeed * Time.fixedDeltaTime);
+        }
     }
 
     //Gets the nearest interactable within range
@@ -162,7 +165,7 @@ public class Player : MonoBehaviour
                 TorchScript tScript = interactable.GetComponent<TorchScript>();
                 if (tScript != null)
                 {
-                    if (lightAmt > torchCost && tScript.lit == false)
+                    if (lightAmt > torchCost && !tScript.lit)
                     {
                         tScript.LightTorch();
                         lightAmt -= torchCost;
@@ -179,15 +182,34 @@ public class Player : MonoBehaviour
                     Destroy(interactable);
                 }
             }
-            
-            // If the interactable is a bomb, give the bomb some of player's light and ignite it
-            else if (interactable.CompareTag("Bomb"))
+            else if (interactable.CompareTag("Zipline"))
             {
-                Bomb bomb = interactable.GetComponent<Bomb>();
-                if (bomb != null)
+                Zipline zScript = interactable.GetComponentInParent<Zipline>();
+                if (zScript != null)
                 {
-                    lightAmt -= bombCost;
-                    bomb.Ignite();
+                    if (lightAmt > ziplineCost && !zScript.isActive)
+                    {
+                        zScript.Activate();
+                        lightAmt -= ziplineCost;
+                    }
+                    else
+                    {
+                        if (zScript.isActive)
+                        {
+                            Vector3 startAnchor = interactable.transform.position;
+                            Vector3 endAnchor;
+                            if (interactable.transform == zScript.AnchorA)
+                            {
+                                endAnchor = zScript.AnchorB.position;
+                            }
+                            else
+                            {
+                                endAnchor = zScript.AnchorA.position;
+                            }
+                            StartCoroutine(UseZipline(startAnchor, endAnchor));
+                        }
+                    }
+                    
                 }
             }
         }
@@ -199,6 +221,21 @@ public class Player : MonoBehaviour
         
     }
 
+    IEnumerator UseZipline(Vector3 start, Vector3 end)
+    {
+        onZipline = true;
+        _collider.enabled = false;
+        transform.position = start;
+        Vector2 direction = (end - start).normalized;
+        while (Vector3.Distance(transform.position, end) > 0.5f)
+        {
+            _rigidBody.AddForce(direction * ziplineSpeed * Time.fixedDeltaTime);
+            yield return null;
+        }
+        onZipline = false;
+        _collider.enabled = true;
+    }
+    
     private void OnCollisionEnter2D(Collision2D other)
     {
         //When player collides with an enemy and player has not recently been hit
@@ -222,7 +259,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         //When player enters interact collider of torch or source, add it to list of nearby interactables
-        if (other.CompareTag("Torch") || other.CompareTag("Source") || other.CompareTag("Bomb"))
+        if (other.CompareTag("Torch") || other.CompareTag("Source") || other.CompareTag("Zipline"))
         {
             nearbyInteractables.Add(other.gameObject);
         }
@@ -231,7 +268,7 @@ public class Player : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         //Same as above, but removing it from the list
-        if (other.CompareTag("Torch") || other.CompareTag("Source") || other.CompareTag("Bomb"))
+        if (other.CompareTag("Torch") || other.CompareTag("Source") || other.CompareTag("Zipline"))
         {
             nearbyInteractables.Remove(other.gameObject);
         }

@@ -8,8 +8,7 @@ TagManager:
   - Torch
   - Source
   - Enemy
-  - Bomb
-  - Explosion
+  - Zipline
   layers:
   - Default
   - TransparentFX
