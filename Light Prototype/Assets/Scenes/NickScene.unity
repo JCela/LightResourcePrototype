@@ -426,6 +426,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4042875001604798169, guid: e643e0b9624d5d84bbae984a25d3f687,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e643e0b9624d5d84bbae984a25d3f687, type: 3}
 --- !u!1 &1111328260
@@ -732,6 +737,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1500
+  ziplineSpeed: 2500
+  onZipline: 0
   lightAmt: 3
   lightLostPerSecond: 0.05
   lightDetectionMulti: 3
@@ -742,10 +749,10 @@ MonoBehaviour:
   visionMask: {fileID: 2123546619}
   torchCost: 1
   lightLostOnHit: 1
+  ziplineCost: 1
   knockbackPower: 10
   droppedLightPrefab: {fileID: 7862942190716254165, guid: e2ad0df6f6931824591070deea510b91,
     type: 3}
-  bombCost: 1
   graceTimer: 0
   gracePeriod: 3
   interactText: {fileID: 1901871404}
@@ -1153,6 +1160,41 @@ PrefabInstance:
     - target: {fileID: 629408969474836382, guid: 0a7a203bfea3134418545044f3d805ee,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 629408969474836380, guid: 0a7a203bfea3134418545044f3d805ee,
+        type: 3}
+      propertyPath: colorFinal.r
+      value: 0.3773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 629408969474836380, guid: 0a7a203bfea3134418545044f3d805ee,
+        type: 3}
+      propertyPath: colorFinal.g
+      value: 0.053274143
+      objectReference: {fileID: 0}
+    - target: {fileID: 629408969474836380, guid: 0a7a203bfea3134418545044f3d805ee,
+        type: 3}
+      propertyPath: colorFinal.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 629408968442021789, guid: 0a7a203bfea3134418545044f3d805ee,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 629408968442021789, guid: 0a7a203bfea3134418545044f3d805ee,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 629408968139364996, guid: 0a7a203bfea3134418545044f3d805ee,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 629408968139364998, guid: 0a7a203bfea3134418545044f3d805ee,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

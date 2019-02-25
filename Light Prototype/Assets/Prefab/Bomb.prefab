@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 629408968442021790}
   - component: {fileID: 629408968442021791}
   - component: {fileID: 629408968442021784}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Explosion
   m_TagString: Explosion
   m_Icon: {fileID: 0}
@@ -477,4 +477,4 @@ MonoBehaviour:
   Explosion: {fileID: 629408968442021789}
   colorInit: {r: 1, g: 0.7261471, b: 0.3820755, a: 1}
   colorFinal: {r: 1, g: 0, b: 0, a: 1}
-  ColorLerpDuration: 4
+  ColorLerpDuration: 3
