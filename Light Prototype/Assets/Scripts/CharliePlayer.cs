@@ -37,7 +37,13 @@ public class CharliePlayer : MonoBehaviour
     public float lightLostOnHit; //light lost when hit by an enemy
     public float ziplineCost;
     public float knockbackPower; //power of force when hit by an enemy
+    
+    
     public GameObject droppedLightPrefab; //prefab for object dropped when hit by enemy
+    public GameObject droppedFlarePrefab;
+
+    public float thrust = 5000;
+    private Quaternion lightRot;
     
     public float graceTimer;
     public float gracePeriod;
@@ -56,6 +62,10 @@ public class CharliePlayer : MonoBehaviour
 
     void Update()
     {
+        //Sets the quaternion lightRot which is used to rotate thrown light objects
+        
+        PointAtMouse();
+        
         if (Input.GetKeyDown(KeyCode.Q))
         {
             throwLight(droppedLightPrefab);
@@ -311,11 +321,30 @@ public class CharliePlayer : MonoBehaviour
         }
     }
 
+    void PointAtMouse()
+            {
+                // Stores the position of the mouse as a vector3
+                Vector3 mousePos = Input.mousePosition;
+                mousePos.z = 5.23f;
+    
+                // Gets the position of the object and stores it
+                Vector3 objectPos = Camera.main.WorldToScreenPoint (transform.position);
+                mousePos.x = mousePos.x - objectPos.x;
+                mousePos.y = mousePos.y - objectPos.y;
+    
+                // Math to find the angle of the rotation
+                float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+    
+                // Rotates the gun to be pointed at the mouse, and clamps the value to make sure that it
+                // doesn't rotate backwards into the player
+                lightRot = Quaternion.Euler(new Vector3(0, 0,angle));
+            }
     
     //Function for throwing a light source
     void throwLight(GameObject light)
     {
-        Instantiate(light, transform.position, Quaternion.identity);
+        Instantiate(light, transform.position, lightRot);
         
+
     }
 }

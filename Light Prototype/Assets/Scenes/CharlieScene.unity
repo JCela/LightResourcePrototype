@@ -317,6 +317,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 667943027}
   m_PrefabAsset: {fileID: 0}
+--- !u!58 &147485864 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 771584449126251423, guid: 68852a9df34856e419e9f3d3c0a4daad,
+    type: 3}
+  m_PrefabInstance: {fileID: 491412786}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &147485866 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 771584449126251421, guid: 68852a9df34856e419e9f3d3c0a4daad,
+    type: 3}
+  m_PrefabInstance: {fileID: 491412786}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &149786937
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -466,6 +478,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8635841500661437176, guid: 7663dc3e263d1714e9f810594a0d5821,
     type: 3}
   m_PrefabInstance: {fileID: 2109466437}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &226374095 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 771584448663487073, guid: 68852a9df34856e419e9f3d3c0a4daad,
+    type: 3}
+  m_PrefabInstance: {fileID: 491412786}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &260283252 stripped
 Transform:
@@ -1210,7 +1228,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 771584448512892242, guid: 68852a9df34856e419e9f3d3c0a4daad, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 68852a9df34856e419e9f3d3c0a4daad, type: 3}
 --- !u!4 &505341180 stripped
 Transform:
@@ -3257,6 +3276,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1349518865}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1177070599 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 771584448901905590, guid: 68852a9df34856e419e9f3d3c0a4daad,
+    type: 3}
+  m_PrefabInstance: {fileID: 491412786}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1209274792
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3565,6 +3590,78 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 491412786}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1263100419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263100418}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5faf5f65f6b164e7f8c04e8d7398f7d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1500
+  ziplineSpeed: 2500
+  onZipline: 0
+  lightAmt: 4
+  lightLostPerSecond: 0.1
+  lightDetectionMulti: 3
+  lightVisionMulti: 5
+  lightAmtVSpeed: 0.8
+  detectionMask: {fileID: 147485866}
+  detectionCollider: {fileID: 147485864}
+  visionMask: {fileID: 226374095}
+  torchCost: 1
+  lightLostOnHit: 1
+  ziplineCost: 1
+  knockbackPower: 5
+  droppedLightPrefab: {fileID: 7862942190716254165, guid: e2ad0df6f6931824591070deea510b91,
+    type: 3}
+  graceTimer: 1
+  gracePeriod: 1
+  interactText: {fileID: 1177070599}
+  nearbyInteractables: []
+--- !u!58 &1263100420 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 771584448512892243, guid: 68852a9df34856e419e9f3d3c0a4daad,
+    type: 3}
+  m_PrefabInstance: {fileID: 491412786}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1263100424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263100418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53cda55d4256abe499f2059eb50bd917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1500
+  ziplineSpeed: 2500
+  onZipline: 0
+  lightAmt: 4
+  lightLostPerSecond: 0.1
+  lightDetectionMulti: 3
+  lightVisionMulti: 5
+  lightAmtVSpeed: 0.8
+  detectionMask: {fileID: 147485866}
+  detectionCollider: {fileID: 1263100420}
+  visionMask: {fileID: 226374095}
+  torchCost: 1
+  lightLostOnHit: 1
+  ziplineCost: 1
+  knockbackPower: 5
+  droppedLightPrefab: {fileID: 7862942190716254165, guid: 4ff13906b95b9cd449c466cb0e21b32e,
+    type: 3}
+  graceTimer: 1
+  gracePeriod: 1
+  interactText: {fileID: 1177070599}
+  nearbyInteractables: []
 --- !u!1 &1266981480
 GameObject:
   m_ObjectHideFlags: 0

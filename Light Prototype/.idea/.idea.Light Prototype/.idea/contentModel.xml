@@ -13,6 +13,7 @@
           <e p="CharliePlayer.cs" t="Include" />
           <e p="DroppedLight.cs" t="Include" />
           <e p="Enemy.cs" t="Include" />
+          <e p="moveLight.cs" t="Include" />
           <e p="Player.cs" t="Include" />
           <e p="SetColliderSize.cs" t="Include" />
           <e p="SourceScript.cs" t="Include" />
