@@ -263,7 +263,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1675272451
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: c1c7f47f50218684e931a205f2936f8a, type: 3}
   m_Color: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 0.5882353}
@@ -502,9 +502,9 @@ SpriteMask:
   m_Sprite: {fileID: 21300000, guid: cbc94f9cd68e3ef46a6ead3f6aeb5622, type: 3}
   m_MaskAlphaCutoff: 0.2
   m_FrontSortingLayerID: 1675272451
-  m_BackSortingLayerID: 1675272451
-  m_FrontSortingLayer: 1
-  m_BackSortingLayer: 1
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
   m_FrontSortingOrder: 1
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 1
@@ -728,27 +728,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1770823879}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35025d5cb8af4694eba8f952a25ac75b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5faf5f65f6b164e7f8c04e8d7398f7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1500
-  lightAmt: 3
-  lightLostPerSecond: 0.05
-  lightDetectionMulti: 3
-  lightVisionMulti: 5
-  lightAmtVSpeed: 0.8
-  detectionMask: {fileID: 1111328263}
-  detectionCollider: {fileID: 1111328261}
-  visionMask: {fileID: 2123546619}
-  torchCost: 1
-  lightLostOnHit: 1
-  knockbackPower: 10
-  droppedLightPrefab: {fileID: 7862942190716254165, guid: e2ad0df6f6931824591070deea510b91,
-    type: 3}
-  bombCost: 1
+  moveSpeed: 0
+  ziplineSpeed: 0
+  onZipline: 0
+  lightAmt: 0
+  lightLostPerSecond: 0
+  lightDetectionMulti: 0
+  lightVisionMulti: 0
+  lightAmtVSpeed: 0
+  detectionMask: {fileID: 0}
+  detectionCollider: {fileID: 0}
+  visionMask: {fileID: 0}
+  torchCost: 0
+  lightLostOnHit: 0
+  ziplineCost: 0
+  knockbackPower: 0
+  droppedLightPrefab: {fileID: 0}
   graceTimer: 0
-  gracePeriod: 3
-  interactText: {fileID: 1901871404}
+  gracePeriod: 0
+  interactText: {fileID: 0}
   nearbyInteractables: []
 --- !u!58 &1770823881
 CircleCollider2D:
@@ -983,7 +984,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1648805447
-  m_SortingLayer: 2
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: c1c7f47f50218684e931a205f2936f8a, type: 3}
   m_Color: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 1}
@@ -1081,9 +1082,9 @@ SpriteMask:
   m_Sprite: {fileID: 21300000, guid: cbc94f9cd68e3ef46a6ead3f6aeb5622, type: 3}
   m_MaskAlphaCutoff: 0.2
   m_FrontSortingLayerID: 1648805447
-  m_BackSortingLayerID: 1648805447
-  m_FrontSortingLayer: 2
-  m_BackSortingLayer: 2
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
   m_FrontSortingOrder: 1
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 1
