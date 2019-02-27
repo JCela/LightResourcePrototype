@@ -15,6 +15,7 @@ public class CampfireScript : MonoBehaviour
     public float campLightLostPerSecond;
     public float lightDetectionMulti, lightVisionMulti;
     private float lightAmtVisualized;
+    
     [Range(0,1)]
     public float lightAmtVSpeed;
     private float detectionRadius;
