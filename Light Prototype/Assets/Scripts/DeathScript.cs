@@ -4,15 +4,56 @@ using UnityEngine;
 
 public class DeathScript : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Player player;
+    private bool isInTorchLight;
+    private bool isLightPlayer;
+    
+    
     void Start()
     {
-        
+        player = GetComponent<Player>();
+        isInTorchLight = false;
+        isLightPlayer = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        Debug.Log(isInTorchLight);
         
+        
+        if (isLightPlayer == false && isInTorchLight == false)
+        {
+            Death();
+        }
+
+        if (player.lightAmt > 1)
+        {
+            isLightPlayer = true;
+        }
+        else if (player.lightAmt < 1  )
+        {
+            isLightPlayer = false;
+        }
+    }
+
+    public void Death()
+    {
+        Debug.Log("DEAD");
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Light"))
+        {
+            isInTorchLight = true;
+        }
+    }
+    
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Light"))
+        {
+            isInTorchLight = false;
+        }
     }
 }
