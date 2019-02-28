@@ -8,7 +8,10 @@ public class moveLight : MonoBehaviour
     private Rigidbody2D lightBody;
 
     //the force at which the light is shot
-    public float thrust = 1f;
+    public float thrust = 800f;
+    
+    //assign 800 for thrust in inspector
+    //linear drag = 1
     
 
     // when this object is instantiated
