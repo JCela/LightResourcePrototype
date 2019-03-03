@@ -17,6 +17,7 @@
           <e p="Flare.cs" t="Include" />
           <e p="Player.cs" t="Include" />
           <e p="SetColliderSize.cs" t="Include" />
+          <e p="ShootFlare_temp.cs" t="Include" />
           <e p="SourceScript.cs" t="Include" />
           <e p="TorchScript.cs" t="Include" />
           <e p="Zipline.cs" t="Include" />
