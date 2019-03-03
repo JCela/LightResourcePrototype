@@ -7,12 +7,14 @@ public class CampfireScript : MonoBehaviour
     private CircleCollider2D _collider;
     private SpriteRenderer _spriteRenderer;
     
-    public bool isCampfireLit;
+    public bool isLit = false;
     [Range(0, 10)]
     public float campLightAmt;
     [Range(0, 10)]
     public float campStartingLightAmt;
+    public float campGoalAmt;
     public float campLightLostPerSecond;
+    public float campDrainSpeed; //light drained/gained per second
     public float lightDetectionMulti, lightVisionMulti;
     private float lightAmtVisualized;
     
@@ -26,6 +28,10 @@ public class CampfireScript : MonoBehaviour
 
     public float interactRadius;
 
+    public GameObject progressBar;
+    
+    public GameObject visionOverlay;
+    
     public Sprite unlitSprite, litSprite;
     
     void Awake()
@@ -44,7 +50,6 @@ public class CampfireScript : MonoBehaviour
             if (campLightAmt <= 0)
             {
                 //When light runs out, reset variables and color
-                isCampfireLit = false;
                 _collider.radius = interactRadius;
                 detectionMask.gameObject.SetActive(false);
                 visionMask.gameObject.SetActive(false);
@@ -57,6 +62,13 @@ public class CampfireScript : MonoBehaviour
                     _spriteRenderer.color = new Color32(150, 150, 150, 255);
                 }
             }
+        }
+
+        UpdateProgressBar();
+        
+        if (campLightAmt >= campGoalAmt)
+        {
+            GetLit();
         }
         
         
@@ -72,8 +84,6 @@ public class CampfireScript : MonoBehaviour
     
     public void LightCampfire()
     {
-        
-        isCampfireLit = true;
         _collider.radius = 0;
         campLightAmt = campStartingLightAmt;
         detectionMask.gameObject.SetActive(true);
@@ -86,5 +96,20 @@ public class CampfireScript : MonoBehaviour
         {
             _spriteRenderer.color = Color.white;
         }
+    }
+
+    public void UpdateProgressBar()
+    {
+        RectTransform progressBarRT = progressBar.GetComponent<RectTransform>();
+        progressBarRT.sizeDelta = new Vector2(2.0f * campLightAmt / campGoalAmt, progressBarRT.sizeDelta.y);
+        progressBarRT.localPosition = new Vector3((progressBarRT.sizeDelta.x - 2.0f)/2, progressBarRT.localPosition.y, progressBarRT.localPosition.z );
+    }
+
+    public void GetLit()
+    {
+        gameObject.layer = 0;
+        isLit = true;
+        visionOverlay.SetActive(false);
+        GameObject.Find("Player").GetComponent<Player>().nearbyInteractables.Remove(this.gameObject);
     }
 }
