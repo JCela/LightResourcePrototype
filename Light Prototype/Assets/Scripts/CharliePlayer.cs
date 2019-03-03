@@ -40,7 +40,7 @@ public class CharliePlayer : MonoBehaviour
     
     
     public GameObject droppedLightPrefab; //prefab for object dropped when hit by enemy
-    public GameObject droppedFlarePrefab;
+    public GameObject thrownLightPrefab; // Prefab For Object dropped when throwing light
 
     public float thrust = 5000;
     private Quaternion lightRot;
@@ -68,7 +68,7 @@ public class CharliePlayer : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            throwLight(droppedLightPrefab);
+            throwLight(thrownLightPrefab);
         }
         
         //Reduce light every second and check for death

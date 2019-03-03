@@ -11,6 +11,9 @@ TagManager:
   - Zipline
   - Bomb
   - Explosion
+  - Campfire
+  - Pole
+  - Wall
   layers:
   - Default
   - TransparentFX
