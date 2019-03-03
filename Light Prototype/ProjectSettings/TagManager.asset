@@ -13,7 +13,7 @@ TagManager:
   - Explosion
   - Campfire
   - Pole
-  - Wall
+  - Flare
   layers:
   - Default
   - TransparentFX
