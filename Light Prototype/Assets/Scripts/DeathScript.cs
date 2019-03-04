@@ -24,7 +24,7 @@ public class DeathScript : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(isInTorchLight);
+        //Debug.Log(isInTorchLight);
         
         
         if (isLightPlayer == false && isInTorchLight == false)

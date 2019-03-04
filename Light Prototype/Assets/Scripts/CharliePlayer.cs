@@ -1,9 +1,9 @@
-﻿ using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class CharliePlayer : MonoBehaviour
 {
     //Components
     private SpriteRenderer _spriteRenderer;
@@ -37,9 +37,14 @@ public class Player : MonoBehaviour
     public float lightLostOnHit; //light lost when hit by an enemy
     public float ziplineCost;
     public float knockbackPower; //power of force when hit by an enemy
+    
+    
     public GameObject droppedLightPrefab; //prefab for object dropped when hit by enemy
-    public static int collectiblesCollected;
-    public int collectiblesGoal;
+    public GameObject thrownLightPrefab; // Prefab For Object dropped when throwing light
+    public GameObject thrownFlarePrefab; // Prefab for Object dropped when throwing flare
+
+    public float thrust = 5000;
+    private Quaternion lightRot;
     
     public float graceTimer;
     public float gracePeriod;
@@ -47,12 +52,6 @@ public class Player : MonoBehaviour
     public GameObject interactText;
     
     public List<GameObject> nearbyInteractables = new List<GameObject>(); //list containing all nearby interactables
-    
-    private Quaternion lightRot;
-    
-    public GameObject thrownLightPrefab; // Prefab For Object dropped when throwing light
-    public GameObject thrownFlarePrefab; // Prefab for Object dropped when throwing flare
-
     
     void Awake()
     {
@@ -64,7 +63,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // Shooting (Charlie)
+        //Sets the quaternion lightRot which is used to rotate thrown light objects
+        
         PointAtMouse();
         
         if (Input.GetMouseButtonDown(0))
@@ -76,7 +76,6 @@ public class Player : MonoBehaviour
         {
             throwLight(thrownFlarePrefab);
         }
-        
         
         //Reduce light every second and check for death
         if (lightAmt > 0)
@@ -123,41 +122,9 @@ public class Player : MonoBehaviour
             interactText.SetActive(false);
         }
         
-        //If nearest interactable is the campfire and E isn't pressed, drain light from the campfire
-        GameObject nearestInteractable = GetNearestInteractable();
-        if (nearestInteractable != null)
-        {
-            if (nearestInteractable.CompareTag("Campfire"))
-            {
-                CampfireScript campfire = GetNearestInteractable().GetComponent<CampfireScript>();
-                if (campfire != null)
-                {
-                    if (campfire.campLightAmt > 0 && !Input.GetKey(KeyCode.E))
-                    {
-                        lightAmt += campfire.campDrainSpeed * Time.deltaTime;
-                        campfire.campLightAmt -= campfire.campDrainSpeed * Time.deltaTime;
-                    }
-                }
-            }
-        }
-
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Comma))
-        {
-            lightAmt -= 1.0f;
-        }
-        if (Input.GetKeyDown(KeyCode.Period))
-        {
-            lightAmt += 1.0f;
-        }
-
-        if (collectiblesCollected >= collectiblesGoal)
-        {
-            Win();
         }
     }
 
@@ -232,10 +199,18 @@ public class Player : MonoBehaviour
                 CampfireScript cScript = interactable.GetComponent<CampfireScript>();
                 if (cScript != null)
                 {
-                    if (lightAmt >= 1.0f)
+                    if (lightAmt > torchCost && cScript.isLit == false)
                     {
-                        StartCoroutine(GiveLight(interactable.GetComponent<CampfireScript>()));
+                        cScript.LightCampfire();
+                        lightAmt -= torchCost;
                     }
+                    else if (lightAmt > torchCost && cScript.isLit == true)
+                    {
+                        lightAmt = (lightAmt + cScript.campLightAmt) / 2;
+                        cScript.campLightAmt = (lightAmt + cScript.campLightAmt) / 2;
+
+                    }
+
                 }
             }
 
@@ -293,27 +268,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Win()
-    {
-        Debug.Log("Win");
-    }
-    
     //When lightAmt goes to 0
     void Death()
     {
         
     }
 
-    IEnumerator GiveLight(CampfireScript campfire)
-    {
-        while (Input.GetKey(KeyCode.E) && lightAmt >= 1.0f && nearbyInteractables.Contains(campfire.gameObject))
-        {
-            lightAmt -= campfire.campDrainSpeed * Time.deltaTime;
-            campfire.campLightAmt += campfire.campDrainSpeed * Time.deltaTime;
-            yield return null;
-        }
-    }
-    
     IEnumerator UseZipline(Vector3 start, Vector3 end)
     {
         onZipline = true;
@@ -366,25 +326,25 @@ public class Player : MonoBehaviour
             nearbyInteractables.Remove(other.gameObject);
         }
     }
-    
+
     void PointAtMouse()
-    {
-        // Stores the position of the mouse as a vector3
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 5.23f;
+            {
+                // Stores the position of the mouse as a vector3
+                Vector3 mousePos = Input.mousePosition;
+                mousePos.z = 5.23f;
     
-        // Gets the position of the object and stores it
-        Vector3 objectPos = Camera.main.WorldToScreenPoint (transform.position);
-        mousePos.x = mousePos.x - objectPos.x;
-        mousePos.y = mousePos.y - objectPos.y;
+                // Gets the position of the object and stores it
+                Vector3 objectPos = Camera.main.WorldToScreenPoint (transform.position);
+                mousePos.x = mousePos.x - objectPos.x;
+                mousePos.y = mousePos.y - objectPos.y;
     
-        // Math to find the angle of the rotation
-        float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+                // Math to find the angle of the rotation
+                float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
     
-        // Rotates the gun to be pointed at the mouse, and clamps the value to make sure that it
-        // doesn't rotate backwards into the player
-        lightRot = Quaternion.Euler(new Vector3(0, 0,angle));
-    }
+                // Rotates the gun to be pointed at the mouse, and clamps the value to make sure that it
+                // doesn't rotate backwards into the player
+                lightRot = Quaternion.Euler(new Vector3(0, 0,angle));
+            }
     
     //Function for throwing a light source
     void throwLight(GameObject light)
