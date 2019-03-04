@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -56,6 +57,7 @@ public class Player : MonoBehaviour
     public float BudCost;
     public float FlareCost;
 
+    public Text CollectablesText;
     
     void Awake()
     {
@@ -67,6 +69,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        CollectablesText.text = (collectiblesCollected + "/6");
+
         // Shooting (Charlie)
         PointAtMouse();
         
