@@ -48,6 +48,12 @@ public class Player : MonoBehaviour
     
     public List<GameObject> nearbyInteractables = new List<GameObject>(); //list containing all nearby interactables
     
+    private Quaternion lightRot;
+    
+    public GameObject thrownLightPrefab; // Prefab For Object dropped when throwing light
+    public GameObject thrownFlarePrefab; // Prefab for Object dropped when throwing flare
+
+    
     void Awake()
     {
         //assign component variables
@@ -58,6 +64,20 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        // Shooting (Charlie)
+        PointAtMouse();
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            throwLight(thrownLightPrefab);
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            throwLight(thrownFlarePrefab);
+        }
+        
+        
         //Reduce light every second and check for death
         if (lightAmt > 0)
         {
@@ -345,5 +365,32 @@ public class Player : MonoBehaviour
         {
             nearbyInteractables.Remove(other.gameObject);
         }
+    }
+    
+    void PointAtMouse()
+    {
+        // Stores the position of the mouse as a vector3
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = 5.23f;
+    
+        // Gets the position of the object and stores it
+        Vector3 objectPos = Camera.main.WorldToScreenPoint (transform.position);
+        mousePos.x = mousePos.x - objectPos.x;
+        mousePos.y = mousePos.y - objectPos.y;
+    
+        // Math to find the angle of the rotation
+        float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+    
+        // Rotates the gun to be pointed at the mouse, and clamps the value to make sure that it
+        // doesn't rotate backwards into the player
+        lightRot = Quaternion.Euler(new Vector3(0, 0,angle));
+    }
+    
+    //Function for throwing a light source
+    void throwLight(GameObject light)
+    {
+        Instantiate(light, transform.position, lightRot);
+        
+
     }
 }

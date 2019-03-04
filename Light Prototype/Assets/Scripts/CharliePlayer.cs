@@ -199,12 +199,12 @@ public class CharliePlayer : MonoBehaviour
                 CampfireScript cScript = interactable.GetComponent<CampfireScript>();
                 if (cScript != null)
                 {
-                    if (lightAmt > torchCost && cScript.isCampfireLit == false)
+                    if (lightAmt > torchCost && cScript.isLit == false)
                     {
                         cScript.LightCampfire();
                         lightAmt -= torchCost;
                     }
-                    else if (lightAmt > torchCost && cScript.isCampfireLit == true)
+                    else if (lightAmt > torchCost && cScript.isLit == true)
                     {
                         lightAmt = (lightAmt + cScript.campLightAmt) / 2;
                         cScript.campLightAmt = (lightAmt + cScript.campLightAmt) / 2;
