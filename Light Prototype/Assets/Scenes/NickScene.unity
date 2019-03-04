@@ -322,8 +322,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3819739814581997952, guid: ac7c9a009b99ee049b3177ad491e4c16,
+        type: 3}
+      propertyPath: visionOverlay
+      value: 
+      objectReference: {fileID: 1264296487}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac7c9a009b99ee049b3177ad491e4c16, type: 3}
+--- !u!1 &1264296487 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6969567556918283164, guid: 7679d53ed2ac85547be38ea8043f3ca9,
+    type: 3}
+  m_PrefabInstance: {fileID: 6969567556794819660}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1486724608
 PrefabInstance:
   m_ObjectHideFlags: 0
