@@ -453,10 +453,15 @@ MonoBehaviour:
   knockbackPower: 5
   droppedLightPrefab: {fileID: 7862942190716254165, guid: e2ad0df6f6931824591070deea510b91,
     type: 3}
+  collectiblesGoal: 2
   graceTimer: 1
   gracePeriod: 1
   interactText: {fileID: 3710498073258098445}
   nearbyInteractables: []
+  thrownLightPrefab: {fileID: 7862942190716254165, guid: 4ff13906b95b9cd449c466cb0e21b32e,
+    type: 3}
+  thrownFlarePrefab: {fileID: 5078228490272722387, guid: 054321570a5b99b4c80a26b14296962b,
+    type: 3}
 --- !u!114 &2048251504936489570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,6 +474,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0bdb903393074edd9b0666c99a90f42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverText: {fileID: 0}
+  pressToRestart: {fileID: 0}
+  deathTimerText: {fileID: 0}
 --- !u!1 &3710498073971210239
 GameObject:
   m_ObjectHideFlags: 0
