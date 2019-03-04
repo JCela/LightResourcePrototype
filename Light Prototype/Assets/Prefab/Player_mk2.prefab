@@ -462,6 +462,8 @@ MonoBehaviour:
     type: 3}
   thrownFlarePrefab: {fileID: 5078228490272722387, guid: 054321570a5b99b4c80a26b14296962b,
     type: 3}
+  BudCost: 0.25
+  FlareCost: 1
 --- !u!114 &2048251504936489570
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 4365166406032564700}
   - component: {fileID: 1545607319802695599}
   - component: {fileID: 1996235636166500443}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Flare
-  m_TagString: Light
+  m_TagString: Flare
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 5078228490394336464}
   - component: {fileID: 5078228490394336465}
   - component: {fileID: 5078228490394336462}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: VisionMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -53,6 +54,10 @@ public class Player : MonoBehaviour
     public GameObject thrownLightPrefab; // Prefab For Object dropped when throwing light
     public GameObject thrownFlarePrefab; // Prefab for Object dropped when throwing flare
 
+    public float BudCost;
+    public float FlareCost;
+
+    public Text CollectablesText;
     
     void Awake()
     {
@@ -64,17 +69,21 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        CollectablesText.text = (collectiblesCollected + "/6");
+
         // Shooting (Charlie)
         PointAtMouse();
         
         if (Input.GetMouseButtonDown(0))
         {
             throwLight(thrownLightPrefab);
+            lightAmt -= BudCost;
         }
 
         if (Input.GetMouseButtonDown(1))
         {
             throwLight(thrownFlarePrefab);
+            lightAmt -= FlareCost;
         }
         
         
