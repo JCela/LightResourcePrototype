@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7862942190192356524}
   - component: {fileID: 7862942190192356525}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: VisionMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,9 +92,9 @@ GameObject:
   - component: {fileID: 3124769714791171901}
   - component: {fileID: 3237460977335180089}
   - component: {fileID: 1255100829751679818}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: CharlieDroppedLight
-  m_TagString: Light
+  m_TagString: Flare
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 7862942191098731882}
   - component: {fileID: 7862942191098731880}
   - component: {fileID: 7862942191098731883}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: DetectionMask
   m_TagString: Light
   m_Icon: {fileID: 0}

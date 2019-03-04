@@ -53,6 +53,9 @@ public class Player : MonoBehaviour
     public GameObject thrownLightPrefab; // Prefab For Object dropped when throwing light
     public GameObject thrownFlarePrefab; // Prefab for Object dropped when throwing flare
 
+    public float BudCost;
+    public float FlareCost;
+
     
     void Awake()
     {
@@ -70,11 +73,13 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             throwLight(thrownLightPrefab);
+            lightAmt -= BudCost;
         }
 
         if (Input.GetMouseButtonDown(1))
         {
             throwLight(thrownFlarePrefab);
+            lightAmt -= FlareCost;
         }
         
         
