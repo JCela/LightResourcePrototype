@@ -3669,6 +3669,8 @@ MonoBehaviour:
     type: 3}
   thrownLightPrefab: {fileID: 7862942190716254165, guid: 4ff13906b95b9cd449c466cb0e21b32e,
     type: 3}
+  thrownFlarePrefab: {fileID: 5078228490272722387, guid: 054321570a5b99b4c80a26b14296962b,
+    type: 3}
   thrust: 100
   graceTimer: 1
   gracePeriod: 1
