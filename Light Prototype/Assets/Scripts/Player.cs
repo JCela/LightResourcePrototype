@@ -38,6 +38,8 @@ public class Player : MonoBehaviour
     public float ziplineCost;
     public float knockbackPower; //power of force when hit by an enemy
     public GameObject droppedLightPrefab; //prefab for object dropped when hit by enemy
+    public static int collectiblesCollected;
+    public int collectiblesGoal;
     
     public float graceTimer;
     public float gracePeriod;
@@ -101,9 +103,41 @@ public class Player : MonoBehaviour
             interactText.SetActive(false);
         }
         
+        //If nearest interactable is the campfire and E isn't pressed, drain light from the campfire
+        GameObject nearestInteractable = GetNearestInteractable();
+        if (nearestInteractable != null)
+        {
+            if (nearestInteractable.CompareTag("Campfire"))
+            {
+                CampfireScript campfire = GetNearestInteractable().GetComponent<CampfireScript>();
+                if (campfire != null)
+                {
+                    if (campfire.campLightAmt > 0 && !Input.GetKey(KeyCode.E))
+                    {
+                        lightAmt += campfire.campDrainSpeed * Time.deltaTime;
+                        campfire.campLightAmt -= campfire.campDrainSpeed * Time.deltaTime;
+                    }
+                }
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Comma))
+        {
+            lightAmt -= 1.0f;
+        }
+        if (Input.GetKeyDown(KeyCode.Period))
+        {
+            lightAmt += 1.0f;
+        }
+
+        if (collectiblesCollected >= collectiblesGoal)
+        {
+            Win();
         }
     }
 
@@ -178,18 +212,10 @@ public class Player : MonoBehaviour
                 CampfireScript cScript = interactable.GetComponent<CampfireScript>();
                 if (cScript != null)
                 {
-                    if (lightAmt > torchCost && cScript.isCampfireLit == false)
+                    if (lightAmt >= 1.0f)
                     {
-                        cScript.LightCampfire();
-                        lightAmt -= torchCost;
+                        StartCoroutine(GiveLight(interactable.GetComponent<CampfireScript>()));
                     }
-                    else if (lightAmt > torchCost && cScript.isCampfireLit == true)
-                    {
-                        lightAmt = (lightAmt + cScript.campLightAmt) / 2;
-                        cScript.campLightAmt = (lightAmt + cScript.campLightAmt) / 2;
-
-                    }
-
                 }
             }
 
@@ -247,12 +273,27 @@ public class Player : MonoBehaviour
         }
     }
 
+    void Win()
+    {
+        Debug.Log("Win");
+    }
+    
     //When lightAmt goes to 0
     void Death()
     {
         
     }
 
+    IEnumerator GiveLight(CampfireScript campfire)
+    {
+        while (Input.GetKey(KeyCode.E) && lightAmt >= 1.0f && nearbyInteractables.Contains(campfire.gameObject))
+        {
+            lightAmt -= campfire.campDrainSpeed * Time.deltaTime;
+            campfire.campLightAmt += campfire.campDrainSpeed * Time.deltaTime;
+            yield return null;
+        }
+    }
+    
     IEnumerator UseZipline(Vector3 start, Vector3 end)
     {
         onZipline = true;
